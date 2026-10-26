@@ -1,0 +1,25 @@
+{
+  "name": "sistema-biblioteca",
+  "version": "1.0.0",
+  "description": "Sistema de Biblioteca - Trabalho B2 de Qualidade e Teste de Software",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:api": "newman run postman/biblioteca.postman_collection.json --reporters cli,htmlextra --reporter-htmlextra-export docs/evidencias/postman-relatorio.html"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@playwright/test": "^1.56.0",
+    "eslint": "^9.39.0",
+    "globals": "^16.5.0",
+    "newman": "^6.2.1",
+    "newman-reporter-htmlextra": "^1.23.1",
+    "vitest": "^3.2.4"
+  }
+}

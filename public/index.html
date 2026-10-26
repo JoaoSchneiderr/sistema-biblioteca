@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sistema de Biblioteca</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <h1>Sistema de Biblioteca</h1>
+
+  <section id="tela-login">
+    <h2>Entrar</h2>
+    <label>Usuário <input id="login" autocomplete="username"></label>
+    <label>Senha <input id="senha" type="password" autocomplete="current-password"></label>
+    <button id="btn-entrar">Entrar</button>
+  </section>
+
+  <section id="painel" hidden>
+    <p>Bem-vindo, <span id="usuario-logado"></span>.</p>
+
+    <h2>Empréstimo</h2>
+    <label>Aluno <select id="emp-aluno"></select></label>
+    <label>Livro <select id="emp-livro"></select></label>
+    <button id="btn-emprestar">Emprestar</button>
+
+    <h2>Devolução</h2>
+    <label>Livro <select id="dev-livro"></select></label>
+    <label>Dias de atraso <input id="dev-atraso" type="number" min="0" value="0"></label>
+    <button id="btn-devolver">Devolver</button>
+
+    <h2>Reserva</h2>
+    <label>Aluno <select id="res-aluno"></select></label>
+    <label>Livro <select id="res-livro"></select></label>
+    <button id="btn-reservar">Reservar</button>
+
+    <h2>Livros</h2>
+    <table>
+      <thead><tr><th>Código</th><th>Título</th><th>Emprestado para</th><th>Reservado por</th></tr></thead>
+      <tbody id="lista-livros"></tbody>
+    </table>
+  </section>
+
+  <p id="mensagem" role="status"></p>
+
+  <script src="app.js"></script>
+</body>
+</html>

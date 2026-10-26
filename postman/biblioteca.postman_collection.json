@@ -1,0 +1,352 @@
+{
+  "info": {
+    "name": "Sistema de Biblioteca - Teste 3 (API de empréstimo)",
+    "description": "Teste 3: valores limite no número de livros por aluno e regra da reserva. Execute na ordem (Run collection).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "00 - Reiniciar dados",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/reset",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reset"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "01 - Ana pega o 1º livro (L1)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/emprestimos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "emprestimos"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"alunoId\": \"a1\", \"livroId\": \"L1\"}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status 201\", () => pm.response.to.have.status(201));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Ana pega o 2º livro (L2)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/emprestimos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "emprestimos"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"alunoId\": \"a1\", \"livroId\": \"L2\"}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status 201\", () => pm.response.to.have.status(201));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Ana pega o 3º livro (L3) - limite: aceito",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/emprestimos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "emprestimos"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"alunoId\": \"a1\", \"livroId\": \"L3\"}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status 201\", () => pm.response.to.have.status(201));",
+              "pm.test(\"Ana fica com 3 livros\", () => pm.expect(pm.response.json().livrosComAluno).to.eql(3));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Ana pede o 4º livro (L4) - acima do limite: recusado",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/emprestimos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "emprestimos"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"alunoId\": \"a1\", \"livroId\": \"L4\"}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status 422\", () => pm.response.to.have.status(422));",
+              "pm.test(\"mensagem de limite\", () => pm.expect(pm.response.json().erro).to.eql(\"Limite de 3 livros atingido\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - Bruno reserva L1 (emprestado para Ana)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/reservas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reservas"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"alunoId\": \"a2\", \"livroId\": \"L1\"}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status 201\", () => pm.response.to.have.status(201));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - Ana devolve L1 com 25 dias de atraso - multa no teto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/devolucoes",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "devolucoes"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"livroId\": \"L1\", \"diasAtraso\": 25}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"multa de R$ 20 (teto)\", () => pm.expect(pm.response.json().multa).to.eql(20));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 - Ana tenta pegar L1 de novo - reservado para Bruno: recusado",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/emprestimos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "emprestimos"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"alunoId\": \"a1\", \"livroId\": \"L1\"}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status 409\", () => pm.response.to.have.status(409));",
+              "pm.test(\"mensagem de reserva\", () => pm.expect(pm.response.json().erro).to.eql(\"Livro reservado para outro aluno\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 - Bruno pega L1 (quem reservou): aceito",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/emprestimos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "emprestimos"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"alunoId\": \"a2\", \"livroId\": \"L1\"}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status 201\", () => pm.response.to.have.status(201));"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ]
+}
