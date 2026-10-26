@@ -1,0 +1,67 @@
+
+> sistema-biblioteca@1.0.0 test:api
+> newman run postman/biblioteca.postman_collection.json --reporters cli,htmlextra --reporter-htmlextra-export docs/evidencias/postman-relatorio.html
+
+newman
+
+Sistema de Biblioteca - Teste 3 (API de empréstimo)
+
+→ 00 - Reiniciar dados
+  POST http://localhost:3000/api/reset [200 OK, 245B, 42ms]
+  ✓  status 200
+
+→ 01 - Ana pega o 1º livro (L1)
+  POST http://localhost:3000/api/emprestimos [201 Created, 300B, 6ms]
+  ✓  status 201
+
+→ 02 - Ana pega o 2º livro (L2)
+  POST http://localhost:3000/api/emprestimos [201 Created, 300B, 4ms]
+  ✓  status 201
+
+→ 03 - Ana pega o 3º livro (L3) - limite: aceito
+  POST http://localhost:3000/api/emprestimos [201 Created, 300B, 3ms]
+  ✓  status 201
+  ✓  Ana fica com 3 livros
+
+→ 04 - Ana pede o 4º livro (L4) - acima do limite: recusado
+  POST http://localhost:3000/api/emprestimos [422 Unprocessable Entity, 291B, 4ms]
+  ✓  status 422
+  ✓  mensagem de limite
+
+→ 05 - Bruno reserva L1 (emprestado para Ana)
+  POST http://localhost:3000/api/reservas [201 Created, 281B, 3ms]
+  ✓  status 201
+
+→ 06 - Ana devolve L1 com 25 dias de atraso - multa no teto
+  POST http://localhost:3000/api/devolucoes [200 OK, 272B, 3ms]
+  ✓  status 200
+  ✓  multa de R$ 20 (teto)
+
+→ 07 - Ana tenta pegar L1 de novo - reservado para Bruno: recusado
+  POST http://localhost:3000/api/emprestimos [409 Conflict, 284B, 4ms]
+  ✓  status 409
+  ✓  mensagem de reserva
+
+→ 08 - Bruno pega L1 (quem reservou): aceito
+  POST http://localhost:3000/api/emprestimos [201 Created, 300B, 7ms]
+  ✓  status 201
+
+┌─────────────────────────┬──────────────────┬─────────────────┐
+│                         │         executed │          failed │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              iterations │                1 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│                requests │                9 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│            test-scripts │                9 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│      prerequest-scripts │                0 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              assertions │               13 │               0 │
+├─────────────────────────┴──────────────────┴─────────────────┤
+│ total run duration: 250ms                                    │
+├──────────────────────────────────────────────────────────────┤
+│ total data received: 410B (approx)                           │
+├──────────────────────────────────────────────────────────────┤
+│ average response time: 8ms [min: 3ms, max: 42ms, s.d.: 11ms] │
+└──────────────────────────────────────────────────────────────┘

@@ -1,0 +1,13 @@
+
+/home/claude/sistema-biblioteca/src/app.js
+   7:8   warning  Function 'criarApp' has too many lines (71). Maximum allowed is 30  max-lines-per-function
+  20:37  warning  Arrow function has a complexity of 6. Maximum allowed is 5          complexity
+  40:43  warning  Arrow function has a complexity of 8. Maximum allowed is 5          complexity
+  58:42  warning  Arrow function has a complexity of 6. Maximum allowed is 5          complexity
+  72:40  warning  Arrow function has a complexity of 6. Maximum allowed is 5          complexity
+
+/home/claude/sistema-biblioteca/src/server.js
+  5:3  warning  Unexpected console statement  no-console
+
+✖ 6 problems (0 errors, 6 warnings)
+
