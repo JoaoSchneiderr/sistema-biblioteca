@@ -39,6 +39,22 @@ Usuário de acesso: **bibliotecario** / senha **1234**. Alunos: `a1` (Ana) e `a2
 | Teste 2 – Playwright | `npm run test:e2e` | Não (ele inicia sozinho) |
 | Teste 3 – Postman/Newman | `npm run test:api` | **Sim** (`npm start` em outro terminal) |
 
+Antes do Teste 2, instale o navegador do Playwright uma vez: `npx playwright install chromium`.
+
+## Resultados da versão Biblioteca 1
+
+Executado com Node v22.14.0, depois do ajuste do ESLint (rota de empréstimo dividida em funções menores).
+
+| Verificação | Resultado | Evidência (`docs/evidencias/`) |
+| --- | --- | --- |
+| ESLint | 6 avisos antes → 5 depois, 0 erros | `eslint-antes.txt`, `eslint-depois.txt` (+ prints) |
+| Teste 1 – Vitest | 9 de 9 passaram | `teste1-vitest.txt`, `teste1-vitest.png` |
+| Teste 2 – Playwright | 2 de 2 passaram | `teste2-playwright.txt`, `teste2-playwright.png`, `playwright-report/` |
+| Teste 3 – Newman | 13 de 13 conferências passaram | `teste3-newman.txt`, `teste3-newman.png`, `postman-relatorio.html` |
+| Reserva pela tela (manual) | 5 de 5 passos conforme o esperado | `reserva-tela-verificacao.md`, `reserva-tela-1..5.png` |
+
+Rastreabilidade (texto de cada Issue): [docs/rastreabilidade/](docs/rastreabilidade/). Respostas da ficha: [docs/ficha-respostas.md](docs/ficha-respostas.md).
+
 ## Estrutura
 
 ```
@@ -50,6 +66,7 @@ tests/e2e/           Teste 2 (Playwright)
 postman/             Teste 3 (coleção do Postman)
 docs/manuais/        passo a passo de cada membro
 docs/evidencias/     saídas, relatórios e capturas guardados
+docs/rastreabilidade/ texto das Issues (regra → teste → resultado)
 .github/             modelo de Issue (rastreabilidade) e GitHub Actions
 ```
 

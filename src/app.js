@@ -41,18 +41,10 @@ export function criarApp() {
     const { alunoId, livroId } = req.body ?? {};
     const aluno = db.alunos.find((a) => a.id === alunoId);
     const livro = db.livros.find((l) => l.id === livroId);
-    if (!aluno || !livro) return res.status(404).json({ erro: 'Aluno ou livro não encontrado' });
-    if (livro.emprestadoPara) return res.status(409).json({ erro: 'Livro já emprestado' });
-    if (!reservaPermite(livro.reservadoPor, alunoId)) {
-      return res.status(409).json({ erro: 'Livro reservado para outro aluno' });
-    }
-    const comAluno = db.livros.filter((l) => l.emprestadoPara === alunoId).length;
-    if (!podeEmprestar(comAluno)) {
-      return res.status(422).json({ erro: 'Limite de 3 livros atingido' });
-    }
-    livro.emprestadoPara = alunoId;
-    if (livro.reservadoPor === alunoId) livro.reservadoPor = null;
-    res.status(201).json({ ok: true, livroId, alunoId, livrosComAluno: comAluno + 1 });
+    const recusa = verificarEmprestimo(db, aluno, livro);
+    if (recusa) return res.status(recusa.status).json({ erro: recusa.erro });
+    const livrosComAluno = registrarEmprestimo(db, livro, alunoId);
+    res.status(201).json({ ok: true, livroId, alunoId, livrosComAluno });
   });
 
   app.post('/api/devolucoes', (req, res) => {
@@ -82,4 +74,37 @@ export function criarApp() {
   });
 
   return app;
+}
+
+// --- Empréstimo dividido em funções menores (ajuste do alerta "complexity" do ESLint) ---
+
+function contarLivrosDoAluno(db, alunoId) {
+  return db.livros.filter((l) => l.emprestadoPara === alunoId).length;
+}
+
+// O livro está livre para este aluno? (não emprestado e sem reserva de outra pessoa)
+function verificarDisponibilidade(livro, alunoId) {
+  if (livro.emprestadoPara) return { status: 409, erro: 'Livro já emprestado' };
+  if (!reservaPermite(livro.reservadoPor, alunoId)) {
+    return { status: 409, erro: 'Livro reservado para outro aluno' };
+  }
+  return null;
+}
+
+// Confere todas as regras do empréstimo. Devolve a recusa (status + mensagem) ou null se pode emprestar.
+function verificarEmprestimo(db, aluno, livro) {
+  if (!aluno || !livro) return { status: 404, erro: 'Aluno ou livro não encontrado' };
+  const indisponivel = verificarDisponibilidade(livro, aluno.id);
+  if (indisponivel) return indisponivel;
+  if (!podeEmprestar(contarLivrosDoAluno(db, aluno.id))) {
+    return { status: 422, erro: 'Limite de 3 livros atingido' };
+  }
+  return null;
+}
+
+// Registra o empréstimo e, se o aluno era quem tinha reservado, libera a reserva.
+function registrarEmprestimo(db, livro, alunoId) {
+  livro.emprestadoPara = alunoId;
+  if (livro.reservadoPor === alunoId) livro.reservadoPor = null;
+  return contarLivrosDoAluno(db, alunoId);
 }

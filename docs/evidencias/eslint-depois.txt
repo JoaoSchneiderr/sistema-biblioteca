@@ -1,0 +1,12 @@
+
+C:\Users\user\projetos\sistema-biblioteca\src\app.js
+   7:8   warning  Function 'criarApp' has too many lines (63). Maximum allowed is 30  max-lines-per-function
+  20:37  warning  Arrow function has a complexity of 6. Maximum allowed is 5          complexity
+  50:42  warning  Arrow function has a complexity of 6. Maximum allowed is 5          complexity
+  64:40  warning  Arrow function has a complexity of 6. Maximum allowed is 5          complexity
+
+C:\Users\user\projetos\sistema-biblioteca\src\server.js
+  5:3  warning  Unexpected console statement  no-console
+
+✖ 5 problems (0 errors, 5 warnings)
+
