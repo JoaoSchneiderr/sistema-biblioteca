@@ -52,8 +52,9 @@ Executado com Node v22.14.0, depois do ajuste do ESLint (rota de empréstimo div
 | Teste 2 – Playwright | 2 de 2 passaram | `teste2-playwright.txt`, `teste2-playwright.png`, `playwright-report/` |
 | Teste 3 – Newman | 13 de 13 conferências passaram | `teste3-newman.txt`, `teste3-newman.png`, `postman-relatorio.html` |
 | Reserva pela tela (manual) | 5 de 5 passos conforme o esperado | `reserva-tela-verificacao.md`, `reserva-tela-1..5.png` |
+| Rastreabilidade (GitHub Issues) | 4 regras com teste, resultado e evidência (#1 a #4) + ESLint (#5) | `issues-lista.png` |
 
-Rastreabilidade (texto de cada Issue): [docs/rastreabilidade/](docs/rastreabilidade/). Respostas da ficha: [docs/ficha-respostas.md](docs/ficha-respostas.md).
+Rastreabilidade: [Issues do repositório](https://github.com/JoaoSchneiderr/sistema-biblioteca/issues) (texto de cada uma em [docs/rastreabilidade/](docs/rastreabilidade/)). Respostas da ficha: [docs/ficha-respostas.md](docs/ficha-respostas.md).
 
 ## Estrutura
 
