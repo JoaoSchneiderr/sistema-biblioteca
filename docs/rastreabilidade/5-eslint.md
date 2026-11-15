@@ -4,7 +4,7 @@
 Todo o código JavaScript do projeto com `npm run lint` (ESLint, regras recomendadas + `complexity`, `max-lines-per-function`, `no-console` e `eqeqeq`).
 
 ## Versão do sistema
-Biblioteca 1 (commit: COMMIT)
+Biblioteca 1 (commit: f7f4cc7)
 
 ## Antes do ajuste: 6 avisos, 0 erros
 | Regra | Quantidade | Onde | O que indica |
@@ -28,3 +28,7 @@ Depois do ajuste os três testes rodaram de novo e passaram: Vitest 9/9, Playwri
 
 ## O que ficou fora
 A análise estática não executa o código, então não diz se as regras dão o resultado certo (isso é papel dos testes). Ficaram 3 avisos de complexidade, a função longa e o `console.log`.
+
+## Links
+- Evidências: https://github.com/JoaoSchneiderr/sistema-biblioteca/tree/f7f4cc7/docs/evidencias
+- Código na versão testada: https://github.com/JoaoSchneiderr/sistema-biblioteca/tree/f7f4cc7

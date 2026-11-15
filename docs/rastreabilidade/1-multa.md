@@ -4,7 +4,7 @@
 Multa de R$ 1,00 por dia de atraso, com teto de R$ 20,00.
 
 ## Versão do sistema
-Biblioteca 1 (commit: COMMIT)
+Biblioteca 1 (commit: f7f4cc7)
 
 ## Onde está implementada
 `src/regras.js`, função `calcularMulta` (usada pela rota `POST /api/devolucoes` em `src/app.js`).
@@ -29,3 +29,7 @@ Todos passaram.
 
 ## O que ficou fora
 Outros valores de atraso entre os limites, cálculo pela data real de devolução (o atraso é digitado) e valores não inteiros pela tela.
+
+## Links
+- Evidências: https://github.com/JoaoSchneiderr/sistema-biblioteca/tree/f7f4cc7/docs/evidencias
+- Código na versão testada: https://github.com/JoaoSchneiderr/sistema-biblioteca/tree/f7f4cc7

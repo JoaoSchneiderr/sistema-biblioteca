@@ -4,7 +4,7 @@
 Após 3 senhas erradas seguidas, o acesso é bloqueado (mesmo que depois a senha certa seja digitada).
 
 ## Versão do sistema
-Biblioteca 1 (commit: COMMIT)
+Biblioteca 1 (commit: f7f4cc7)
 
 ## Onde está implementada
 `src/regras.js`, função `deveBloquear` (usada pela rota `POST /api/login` em `src/app.js`).
@@ -26,3 +26,7 @@ Todos passaram.
 
 ## O que ficou fora
 Como desbloquear o usuário (o sistema não tem essa função; só reiniciando), e se o contador volta a zero depois de um login certo antes da 3ª tentativa.
+
+## Links
+- Evidências: https://github.com/JoaoSchneiderr/sistema-biblioteca/tree/f7f4cc7/docs/evidencias
+- Código na versão testada: https://github.com/JoaoSchneiderr/sistema-biblioteca/tree/f7f4cc7

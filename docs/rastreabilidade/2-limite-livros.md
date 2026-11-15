@@ -4,7 +4,7 @@
 Cada aluno pode ter no máximo 3 livros emprestados ao mesmo tempo; o 4º pedido é recusado. Prazo: 7 dias.
 
 ## Versão do sistema
-Biblioteca 1 (commit: COMMIT)
+Biblioteca 1 (commit: f7f4cc7)
 
 ## Onde está implementada
 `src/regras.js`, função `podeEmprestar` (usada pela rota `POST /api/emprestimos` em `src/app.js`, função `verificarEmprestimo`).
@@ -26,3 +26,7 @@ Todos passaram.
 
 ## O que ficou fora
 O prazo de 7 dias (não é verificado por nenhum teste), vários alunos ao mesmo tempo e o limite pela tela.
+
+## Links
+- Evidências: https://github.com/JoaoSchneiderr/sistema-biblioteca/tree/f7f4cc7/docs/evidencias
+- Código na versão testada: https://github.com/JoaoSchneiderr/sistema-biblioteca/tree/f7f4cc7
